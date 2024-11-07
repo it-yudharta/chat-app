@@ -4,12 +4,15 @@ import React from 'react';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { useSession } from '@/hooks/ctx';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
-  const loggedIn = false;
-  if (!loggedIn) {
+  const { session, isLoading } = useSession();
+
+  // const loggedIn = false;
+  if (!session) {
     return <Redirect href="/login" />;
   }
 

@@ -21,27 +21,27 @@ export function useSession() {
       throw new Error('useSession must be wrapped in a <SessionProvider />');
     }
   }
-
+  console.log('useSession', value);
   return value;
 }
 
-export function SessionProvider({ children }: PropsWithChildren) {
-  const [[isLoading, session], setSession] = useStorageState('session');
+// export function SessionProvider({ children }: PropsWithChildren) {
+// const [[isLoading, session], setSession] = useStorageState('session');
 
-  return (
-    <AuthContext.Provider
-      value={{
-        signIn: (username: string, password: string) => {
-          // Perform sign-in logic here
-          setSession(`${username}-${password}`);
-        },
-        signOut: () => {
-          setSession(null);
-        },
-        session,
-        isLoading,
-      }}>
-      {children}
-    </AuthContext.Provider>
-  );
-}
+//   return (
+//     <AuthContext.Provider
+//       value={{
+//         signIn: (username: string, password: string) => {
+//           // Perform sign-in logic here
+//           setSession(`${username}-${password}`);
+//         },
+//         signOut: () => {
+//           setSession(null);
+//         },
+//         session,
+//         isLoading,
+//       }}>
+//       {children}
+//     </AuthContext.Provider>
+//   );
+// }
