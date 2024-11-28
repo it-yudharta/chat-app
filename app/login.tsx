@@ -1,9 +1,12 @@
+import { useStorageState } from "@/hooks/useStorageState";
 import { useState } from "react";
 import { Button, Text, TextInput, View } from "react-native";
 
 export default function LoginPage () {
   const [username, setUsername] = useState('doejohn');
   const [password, setPassword] = useState('test@123');
+
+  const [_, setSession] = useStorageState('session');
 
   const signIn = async () => {
     const url = 'https://api.freeapi.app/api/v1/users/login';
@@ -18,9 +21,12 @@ export default function LoginPage () {
 
     try {
       const response = await fetch(url, options);
-      const data = await response.json();
-      console.log(data);
+      const res = await response.json();
+      const accessToken = res.data.accessToken
+      console.log(accessToken);
+      setSession(accessToken);
     } catch (error) {
+      setSession(null);
       console.error(error);
     }
   }
