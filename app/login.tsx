@@ -1,4 +1,5 @@
 import { useStorageState } from "@/hooks/useStorageState";
+import { Redirect } from "expo-router";
 import { useState } from "react";
 import { Button, Text, TextInput, View } from "react-native";
 
@@ -6,7 +7,11 @@ export default function LoginPage () {
   const [username, setUsername] = useState('doejohn');
   const [password, setPassword] = useState('test@123');
 
-  const [_, setSession] = useStorageState('session');
+  const [[isLoading, session], setSession] = useStorageState('session');
+
+  if (session) {
+    return <Redirect href="/" />;
+  }
 
   const signIn = async () => {
     const url = 'https://api.freeapi.app/api/v1/users/login';
@@ -25,6 +30,8 @@ export default function LoginPage () {
       const accessToken = res.data.accessToken
       console.log(accessToken);
       setSession(accessToken);
+
+      return <Redirect href="/" />;
     } catch (error) {
       setSession(null);
       console.error(error);
