@@ -12,6 +12,7 @@ type Chat = {
     _id: string;
     name: string;
     participants: Participant[];
+    updatedAt: string;
 };
 
 export default function TabChat() {
@@ -63,7 +64,7 @@ export default function TabChat() {
                             source={{uri: item.participants[0].avatar.url}}
                         />
                         <Text>
-                        {item.participants[0].username}, {item.participants[0].updatedAt}
+                        {item.participants[0].username}, {item.updatedAt}
                         </Text>
                     </View>
                 )}
